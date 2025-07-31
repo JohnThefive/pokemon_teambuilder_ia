@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pokedex_flutter_team_creator/common/models/pokemon.dart';
+import '../../common/models/pokemon.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key, required this.list});

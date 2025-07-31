@@ -26,7 +26,7 @@ class Pokemon {
     return Pokemon(
       name: json['name'],
       sprite: json['sprites']['front_default'],
-      num: json['id'],
+      num: json['id'].toString(),
       types: pokemonTypes,
     );
   }

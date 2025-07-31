@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:pokedex_flutter_team_creator/common/consts/api_consts.dart';
-import 'package:pokedex_flutter_team_creator/common/models/pokemon.dart';
+import '../../consts/api_consts.dart';
+import '../pokemon.dart';
 
 abstract class IPokemonRepository {
   // Adicionamos um parâmetro para tornar a função mais flexível
