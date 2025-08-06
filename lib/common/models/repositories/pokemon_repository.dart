@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:pokedex_flutter_team_creator/error/failures.dart';
 import '../../consts/api_consts.dart';
 import '../pokemon.dart';
 
@@ -35,7 +36,7 @@ class PokemonRepository implements IPokemonRepository {
       return await Future.wait(pokemonFutures);
 
     } catch (e) {
-      rethrow ;//Failures(message:'não foi possível carregar os dados');
+      throw Failures(message:'não foi possível carregar os dados');
     }
   }
 }
