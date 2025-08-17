@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:pokedex_flutter_team_creator/Features/pokedex/screens/details/container/detail_container.dart';
 import '../../../../../common/models/pokemon.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key, required this.list});
+  const HomePage({
+    super.key,
+    required this.list,
+    required this.onItemTap,
+  });
+
   final List<Pokemon> list;
+  final Function(String, DetailArguments) onItemTap;
 
   @override
   Widget build(BuildContext context) {
@@ -17,34 +24,35 @@ class HomePage extends StatelessWidget {
         itemCount: list.length,
         itemBuilder: (BuildContext context, int index) {
           final pokemon = list[index];
-          return Card( // Usar um Card deixa o visual mais agradável
+
+          return Card(
             margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             child: ListTile(
-              // LEADING: Exibe a imagem (sprite) à esquerda
+              onTap: () {
+                onItemTap(
+                  '/details',
+                  DetailArguments(name: pokemon.name),
+                );
+              },
               leading: Image.network(
                 pokemon.sprite,
-                // Adiciona um loading e um erro para a imagem, caso ela demore ou falhe
                 loadingBuilder: (context, child, loadingProgress) {
                   if (loadingProgress == null) return child;
-                  return const CircularProgressIndicator();
+                  return const SizedBox(
+                    width: 24,
+                    height: 24,
+                    child: CircularProgressIndicator(strokeWidth: 2),
+                  );
                 },
-                errorBuilder: (context, error, stackTrace) => const Icon(Icons.error),
+                errorBuilder: (context, error, stackTrace) =>
+                    const Icon(Icons.error),
               ),
-              // TITLE: Exibe o número e o nome do Pokémon
               title: Text(
                 '#${pokemon.num.toString().padLeft(4, '0')} - ${pokemon.name}',
                 style: const TextStyle(fontWeight: FontWeight.bold),
               ),
-              // SUBTITLE: Exibe a lista de tipos
-              subtitle: Text(pokemon.types.join(', ')), // Ex: "grass, poison"
-              
-              // TRAILING: Pode adicionar um ícone ou botão à direita
+              subtitle: Text(pokemon.types.join(', ')),
               trailing: const Icon(Icons.navigate_next),
-              onTap: () {
-                // Aqui você pode adicionar a navegação para uma tela de detalhes
-                // ignore: avoid_print
-                print('Clicou no ${pokemon.name}');
-              },
             ),
           );
         },
